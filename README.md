@@ -5,7 +5,7 @@ Use LLM to generate a daily activity report on computer. You can run it using a 
 This small program basically take a screenshot between dired a time-interval, submit it to the inference along a system prompt and process the result, aggregating them all into a local history file. Then you can generate Markdown reports about your local computer activities in a specific day.
 
 ## Requirements
-- Python 3
+- Python 3.11.8
 - Ollama
 - At least a i7 cpu for equivalent, 16gb ram and a dedicated GPU. This program was tested in a Macbook Pro early-2018 and Macbook Air M2.
 

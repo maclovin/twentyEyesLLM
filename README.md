@@ -1,6 +1,6 @@
 # twentyEyesLLM
 
-Use LLM to generate a daily-routine report on computer. You can run it using a inference server locally or remotely with Ollama and OpenAI. 
+Use LLM to generate a daily activity report on computer. You can run it using a inference server locally or remotely with Ollama and OpenAI. 
 
 This small program basically take a screenshot between dired a time-interval, submit it to the inference along a system prompt and process the result, aggregating them all into a local history file. Then you can generate Markdown reports about your local computer activities in a specific day.
 

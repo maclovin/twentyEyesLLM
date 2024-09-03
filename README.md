@@ -33,7 +33,9 @@ $ python -m twentyEyesLLM history --list
 24_05_04
 24_06_07
 24_06_06
+
 $ python -m twentyEyesLLM report --date 24_06_07 > my_report.md
+$ open my_report.md
 ```
 
 Clear local history

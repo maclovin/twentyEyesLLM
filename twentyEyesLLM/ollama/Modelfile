@@ -1,0 +1,11 @@
+FROM llava:7b-v1.6-mistral-q4_K_S
+PARAMETER temperature 0.1
+PARAMETER num_ctx 4096
+PARAMETER mirostat 1
+PARAMETER mirostat_tau 2.0
+
+PARAMETER stop "[INST]"
+PARAMETER stop "[/INST]"
+
+TEMPLATE """[INST] {{ if .System }}{{ .System }} {{ end }}{{ .Prompt }} [/INST]"""
+SYSTEM You assist the user by describing screenshots images

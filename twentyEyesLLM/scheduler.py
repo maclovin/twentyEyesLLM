@@ -2,10 +2,15 @@
 Scheduler module has methods to handle the screenshot and LLM invoke.
 """
 
-from .llm import invoke_ollama_image_inference, invoke_openai_image_inference, SupportedModels
+from .llm import (
+    invoke_ollama_image_inference,
+    invoke_openai_image_inference,
+    SupportedModels,
+)
 from .screenshot import take_screenshot, load_screenshot
 from schedule import every
 from .history import update_history
+
 
 def _ollama_job() -> None:
     """
@@ -22,6 +27,7 @@ def _ollama_job() -> None:
     inference = invoke_ollama_image_inference(image=screenshot)
     update_history(new_inference=inference)
 
+
 def _openai_job() -> None:
     """
     Define the OpenAI job. Take a screenshot and submit it to the server for inference.
@@ -37,6 +43,7 @@ def _openai_job() -> None:
     screenshot = load_screenshot()
     inference = invoke_openai_image_inference(image=screenshot)
     update_history(new_inference=inference)
+
 
 def job(model: SupportedModels, interval: int) -> None:
     """

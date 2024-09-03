@@ -1,6 +1,6 @@
 "This module provides a collection of prompts."
 
-PROMPT_IMAGE_INFERENCE="""
+PROMPT_IMAGE_INFERENCE = """
 
 description:
 This image is a screenshot from the USER computer. Describe it with few words as possible all relevant information like which softwares is running, what the content inside each software and what the USER could be possibly doing,

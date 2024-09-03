@@ -1,8 +1,11 @@
+"""
+This module provides methods to handle the history generation, deletion and information aggregation.
+"""
+
 import os
 import json
 from typing import Any, List, NamedTuple
 from enum import Enum
-from twentyEyesLLM import __app_name__
 from datetime import datetime
 
 from .llm import Inference
@@ -10,19 +13,24 @@ from .config import HISTORY_FILE_PATH
 from .report import Report
 from .errors import HISTORY_FILE_NOT_FOUND_ERROR, HISTORY_FILE_DELETE_PERMS_ERROR
 
+
 class ReportFormats(str, Enum):
     """
     Enum representing the supported report formats.
     """
+
     MARKDOWN = "markdown"
     PLAINTEXT = "plaintext"
     JSON = "json"
+
 
 class History(NamedTuple):
     """
     NamedTuple representing the history of inferences.
     """
+
     inferences: List[Inference]
+
 
 def _generate_file_name(date: Any = None) -> str:
     """
@@ -36,7 +44,8 @@ def _generate_file_name(date: Any = None) -> str:
     """
     if date is None:
         date = datetime.now()
-    return date.strftime('%y_%m_%d')
+    return date.strftime("%y_%m_%d")
+
 
 def _get_history_file(file_name: str) -> Any:
     """
@@ -48,25 +57,30 @@ def _get_history_file(file_name: str) -> Any:
     Returns:
         Any: The loaded history file content.
     """
-    target_file = f"{HISTORY_FILE_PATH}{file_name}.json" if file_name else f"{HISTORY_FILE_PATH}{_generate_file_name()}.json"
-    
+    target_file = (
+        f"{HISTORY_FILE_PATH}{file_name}.json"
+        if file_name
+        else f"{HISTORY_FILE_PATH}{_generate_file_name()}.json"
+    )
+
     if not os.path.exists(target_file):
         directory_path = os.path.dirname(target_file)
-        
+
         if not os.path.exists(directory_path):
             os.makedirs(directory_path)
             print(f"[INFO] Creating '{directory_path}' directory.")
-        
-        with open(target_file, "w") as file:
+
+        with open(target_file, "w", encoding="utf-8") as file:
             new_history = History(inferences=[])
             json.dump(new_history._asdict(), file)
-        
+
         print(f"[INFO] File '{target_file}' created.")
     else:
         print(f"[INFO] File '{target_file}' already exists. Using it.")
-        
-    with open(target_file, "r") as history_file:
+
+    with open(target_file, "r", encoding="utf-8") as history_file:
         return json.load(history_file)
+
 
 def update_history(new_inference: Inference) -> None:
     """
@@ -78,9 +92,10 @@ def update_history(new_inference: Inference) -> None:
     target_file_name = _generate_file_name()
     parsed_history = _get_history_file(file_name=target_file_name)
     parsed_history["inferences"].append(new_inference._asdict())
-    
-    with open(f"{HISTORY_FILE_PATH}{target_file_name}.json", "w") as file:
+
+    with open(f"{HISTORY_FILE_PATH}{target_file_name}.json", "w", encoding="utf-8") as file:
         json.dump(parsed_history, file)
+
 
 def clear_history() -> None:
     """
@@ -96,6 +111,7 @@ def clear_history() -> None:
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
+
 def get_all_history_file_names() -> List[str]:
     """
     Get all history file names.
@@ -104,12 +120,13 @@ def get_all_history_file_names() -> List[str]:
         List[str]: A list of all history file names (without extensions).
     """
     files = []
-    
+
     for _, __, filenames in os.walk(HISTORY_FILE_PATH):
         for filename in filenames:
             files.append(filename.split(".")[0])
 
     return files
+
 
 def generate_history_report(date: str) -> None:
     """
@@ -119,10 +136,10 @@ def generate_history_report(date: str) -> None:
         date (str): The date for which to generate the history report.
     """
     history_files = get_all_history_file_names()
-    
+
     if date in history_files:
         parsed_history = _get_history_file(date)
-        
+
         report = Report(history=parsed_history)
         print(report.to_markdown())
     else:

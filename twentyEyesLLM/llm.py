@@ -76,6 +76,8 @@ def init_ollama() -> None:
     """
     Initialize the Ollama client with the specified host.
     """
+    
+    print("Building the twentyEyesLLM model on Ollama server, this process can take some minutes...")
     _ollama_client.create(model=OLLAMA_LOCAL_MODEL, modelfile=_load_modelfile())
 
 
@@ -108,6 +110,11 @@ def invoke_ollama_image_inference(image: str) -> Inference:
         category=parsed_result["category"],
     )
 
+def check_ollama_models() -> bool:
+    response = _ollama_client.list()
+    
+    
+    return any(model['name'] == 'twentyEyesLLM:latest' for model in response['models'])
 
 def invoke_openai_image_inference(image: str) -> Inference:
     """

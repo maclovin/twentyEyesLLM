@@ -5,6 +5,7 @@ import os
 WORK_DIR_PATH = os.path.dirname(__file__)
 HOME_DIR_PATH = os.path.expanduser("~")
 
+LOCAL_PATH = os.path.join(HOME_DIR_PATH, ".twentyEyesLLM/")
 IMAGE_FILE_PATH = os.path.join(HOME_DIR_PATH, ".twentyEyesLLM/temp.png")
 HISTORY_FILE_PATH = os.path.join(HOME_DIR_PATH, ".twentyEyesLLM/history/")
 

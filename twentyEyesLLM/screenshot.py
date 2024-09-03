@@ -2,9 +2,10 @@
 This module provides screenshot capabilities.
 """
 
+import os
 import base64
 from PIL import ImageGrab
-from .config import IMAGE_FILE_PATH
+from .config import IMAGE_FILE_PATH, LOCAL_PATH
 
 
 def take_screenshot() -> None:
@@ -18,6 +19,12 @@ def take_screenshot() -> None:
     Returns:
         None
     """
+    
+    if not os.path.exists(IMAGE_FILE_PATH):
+        if not os.path.exists(LOCAL_PATH):
+            os.makedirs(LOCAL_PATH)
+            print(f"[INFO] Creating '{LOCAL_PATH}' directory.")
+            
     screenshot = ImageGrab.grab()
     screenshot.save(IMAGE_FILE_PATH, "PNG")
 

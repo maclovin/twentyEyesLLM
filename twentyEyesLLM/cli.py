@@ -9,7 +9,7 @@ from schedule import run_pending
 from . import __app_name__, __version__
 from .config import DEFAULT_JOB_INTERVAL
 from .history import generate_history_report, get_all_history_file_names, clear_history
-from .llm import init_ollama, SupportedModels
+from .llm import init_ollama, SupportedModels, check_ollama_models
 from .scheduler import job
 from .errors import (
     OPENAI_ERROR,
@@ -72,7 +72,9 @@ def run(
 
     if ollama:
         try:
-            init_ollama()
+            if not check_ollama_models():
+                init_ollama()
+
             job(model=SupportedModels.OLLAMA, interval=interval)
         except Exception as e:
             print(f"{OLLAMA_ERROR} - {e}")

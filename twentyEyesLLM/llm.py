@@ -2,6 +2,7 @@
 This module provides inference methods and datatypes on top of supported LLMs.
 """
 
+import os
 import json
 from openai import OpenAI
 from ollama import Client as OllamaClient
@@ -19,8 +20,7 @@ from .config import (
 )
 
 _ollama_client = OllamaClient(host=OLLAMA_HOST)
-_openai_client = OpenAI()
-
+_openai_client = OpenAI() if "OPENAI_API_KEY" in os.environ else None
 
 class SupportedModels(Enum):
     """

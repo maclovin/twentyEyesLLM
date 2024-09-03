@@ -51,3 +51,6 @@ $ python -m twentyEyesLLM history --clear
 $ python -m twentyEyesLLM --help
 ```
 
+## About the name
+"Twenty Eyes" is one of my Misfits favorite songs from their debut studio album "Walk Among Us". From my perspective, the song talks about the spider capability to see everything with twenty eyes.
+

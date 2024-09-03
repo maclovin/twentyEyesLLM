@@ -7,7 +7,7 @@ This small program basically take a screenshot between dired a time-interval, su
 ## Requirements
 - Python 3.11.8
 - Ollama
-- At least a i7 cpu for equivalent, 16gb ram and a dedicated GPU. This program was tested in a Macbook Pro early-2018 and Macbook Air M2.
+- At least an i7 cpu (or equivalent), 16gb ram and a dedicated GPU. This program was tested in a Macbook Pro early-2018 and Macbook Air M2.
 
 ## Usage
 Running using Ollama
